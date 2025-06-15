@@ -18,11 +18,34 @@ pipeline {
             }
         }
 
-        stage('Build & Test') {
-            steps {
-                echo "🏗️ Buildujem a spúšťam testy"
-                withEnv(['JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8']) {
-                    bat 'mvn clean test'
+        stage('Parallel Tests') {
+            parallel {
+                stage('LoginTest') {
+                    steps {
+                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                            withEnv(['JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8']) {
+                                bat 'mvn -Dtest=LoginTest test'
+                            }
+                        }
+                    }
+                }
+                stage('AddAndVerifyEmployeeTest') {
+                    steps {
+                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                            withEnv(['JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8']) {
+                                bat 'mvn -Dtest=LoginTest test'
+                            }
+                        }
+                    }
+                }
+                stage('LoginAndCheckMyInfoTest') {
+                    steps {
+                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                            withEnv(['JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8']) {
+                                bat 'mvn -Dtest=LoginTest test'
+                            }
+                        }
+                    }
                 }
             }
         }
