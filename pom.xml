@@ -35,6 +35,9 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M9</version>
         <configuration>
+          <systemPropertyVariables>
+            <allure.results.directory>target/allure-results</allure.results.directory>
+          </systemPropertyVariables>
           <parallel>classes</parallel>
           <threadCount>3</threadCount>
           <useUnlimitedThreads>false</useUnlimitedThreads>
@@ -63,6 +66,11 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.5.18</version>
+    </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit5</artifactId>
+      <version>2.29.1</version> <!-- alebo najnovšiu -->
     </dependency>
   </dependencies>
 </project>

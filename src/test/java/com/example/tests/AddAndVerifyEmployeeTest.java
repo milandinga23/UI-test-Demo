@@ -1,6 +1,7 @@
 package com.example.tests;
 
 import com.example.tests.pages.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -14,6 +15,7 @@ public class AddAndVerifyEmployeeTest extends BaseTest{
     private AddEmployeePage addEmployeePage;
     private MyInfoPage myInfoPage;
 
+    @DisplayName("Add and Find Employee")
     @Test
     public void testAddAndFindEmployee() throws InterruptedException {
         String firstName = "John";
