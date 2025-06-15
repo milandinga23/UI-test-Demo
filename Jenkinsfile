@@ -21,7 +21,9 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo "🏗️ Buildujem a spúšťam testy"
-                bat 'mvn clean test'
+                withEnv(['JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8']) {
+                    bat 'mvn clean test'
+                }
             }
         }
 
