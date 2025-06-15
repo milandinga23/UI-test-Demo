@@ -41,6 +41,7 @@
           <parallel>classes</parallel>
           <threadCount>3</threadCount>
           <useUnlimitedThreads>false</useUnlimitedThreads>
+          <useModulePath>false</useModulePath>
         </configuration>
       </plugin>
     </plugins>
@@ -76,6 +77,11 @@
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-junit5</artifactId>
       <version>2.29.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.21.1</version>
     </dependency>
   </dependencies>
 </project>
