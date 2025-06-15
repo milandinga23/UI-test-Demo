@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        SCREENSHOT_DIR = 'target/screenshots'
+        SCREENSHOT_DIR = 'screenshots'
         MAVEN_OPTS = '-Dfile.encoding=UTF-8'
     }
 
@@ -26,13 +26,6 @@ pipeline {
                         bat 'mvn clean test'
                     }
                 }
-            }
-        }
-
-        stage('Test Reports') {
-            steps {
-                echo "🧪 Zbieram JUnit reporty"
-                junit '**/target/surefire-reports/*.xml'
             }
         }
 
