@@ -20,6 +20,7 @@ public abstract class BasePage {
     public BasePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitForPageLoad();
         initElements();
     }
 
@@ -91,8 +92,8 @@ public abstract class BasePage {
 
     protected void waitForPageLoad() {
         logger.info("Čakám na načítanie stránky pomocou JavaScriptu.");
-        wait.until(driver -> ((String) ((org.openqa.selenium.JavascriptExecutor) driver)
-                .executeScript("return document.readyState")).equals("complete"));
+        wait.until(driver -> ((org.openqa.selenium.JavascriptExecutor) driver)
+                .executeScript("return document.readyState").equals("complete"));
     }
 
     public MyInfoPage goToMyInfo() {

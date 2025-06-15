@@ -29,6 +29,7 @@ public class MyInfoPage extends BasePage {
         }
     }
 
+    @Step("Získaj meno zo stránky My Info")
     public String getDisplayedFullName() {
         return getText(fullNameHeader);
     }

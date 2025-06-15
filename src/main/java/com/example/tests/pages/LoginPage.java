@@ -36,7 +36,6 @@ public class LoginPage extends BasePage {
     }
 
     public DashboardPage login(String username, String password) {
-        waitForPageLoad();
         type(usernameField, username);
         type(passwordField, password);
         click(loginButton);

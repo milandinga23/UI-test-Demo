@@ -1,6 +1,7 @@
 package com.example.tests;
 
 import com.example.tests.pages.*;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,11 +24,13 @@ public class AddAndVerifyEmployeeTest extends BaseTest{
         String fullName = firstName + " " + lastName;
         String employeeId = String.valueOf(new Random().nextInt(900000) + 100000);
 
-        // Login
-        LoginPage loginPage = new LoginPage(driver);
-        dashboardPage = loginPage.login(TestData.USERNAME, TestData.PASSWORD);
+        dashboardPage = loginToApp(TestData.USERNAME, TestData.PASSWORD);
+        myInfoPage = addNewEmployee(employeeId, firstName, lastName);
+        employeeListPage = verifyNewEmployee(employeeId, fullName);
+    }
 
-        // Add employee
+    @Step("Pridaj employee")
+    public MyInfoPage addNewEmployee(String employeeId, String firstName, String lastName) {
         employeeListPage = dashboardPage.goToEmployeeListPage();
         assertTrue(employeeListPage.isLoaded(), "Employee List sa nenačítal");
         addEmployeePage = employeeListPage.goToAddNewEmployee();
@@ -35,14 +38,15 @@ public class AddAndVerifyEmployeeTest extends BaseTest{
 
         myInfoPage = addEmployeePage.addEmployee(firstName, lastName, employeeId);
         assertTrue(myInfoPage.isLoaded(), "Personal Details sa nenačítal");
-
-
-        // Verify in employee list
-        employeeListPage = dashboardPage.goToEmployeeListPage();
-        assertTrue(employeeListPage.isLoaded(), "Employee List sa nenačítal");
-
-        boolean found = employeeListPage.searchEmployeeByEmployeeIdAcrossPages(employeeId);
-        assertTrue(found, "Zamestnanec: " + fullName + " s Id:" + employeeId + " nebol nájdený v zozname!");
+        return myInfoPage;
     }
 
+    @Step("Verifikuj pridaného zamestnanca")
+    public EmployeeInformationPage verifyNewEmployee(String employeeId, String fullName) throws InterruptedException {
+        employeeListPage = dashboardPage.goToEmployeeListPage();
+        assertTrue(employeeListPage.isLoaded(), "Employee List sa nenačítal");
+        boolean found = employeeListPage.searchEmployeeByEmployeeIdAcrossPages(employeeId);
+        assertTrue(found, "Zamestnanec: " + fullName + " s Id:" + employeeId + " nebol nájdený v zozname!");
+        return employeeListPage;
+    }
 }

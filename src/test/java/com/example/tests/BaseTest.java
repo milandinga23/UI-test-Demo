@@ -1,5 +1,8 @@
 package com.example.tests;
 
+import com.example.tests.pages.DashboardPage;
+import com.example.tests.pages.LoginPage;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -16,6 +19,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BaseTest {
 
@@ -66,5 +71,14 @@ public class BaseTest {
         } catch (IOException e) {
             logger.error("Nepodarilo sa uložiť screenshot: {}", e.getMessage());
         }
+    }
+
+    @Step("Login")
+    public DashboardPage loginToApp(String username, String password) {
+        LoginPage loginPage = new LoginPage(driver);
+        assertTrue(loginPage.isLoaded(), "Login page sa nenačítala");
+        DashboardPage dashboardPage = loginPage.login(username, password);
+        assertTrue(dashboardPage.isLoaded(), "Dashboard sa nenačítal");
+        return dashboardPage;
     }
 }
