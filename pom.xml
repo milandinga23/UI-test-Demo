@@ -38,6 +38,7 @@
           <systemPropertyVariables>
             <allure.results.directory>target/allure-results</allure.results.directory>
           </systemPropertyVariables>
+          <argLine>-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.21.1/aspectjweaver-1.9.21.1.jar</argLine>
           <parallel>classes</parallel>
           <threadCount>3</threadCount>
           <useUnlimitedThreads>false</useUnlimitedThreads>
