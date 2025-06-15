@@ -1,5 +1,6 @@
 package com.example.tests.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,16 +27,17 @@ public class LoginPage extends BasePage {
     public boolean isLoaded() {
         try {
             waitForVisibility(heading);
-            logger.info("PIM page úspešne načítaná.");
+            logger.info("Login page úspešne načítaná.");
             return true;
         } catch (Exception e) {
-            logger.error("PIM page sa nepodarilo načítať.", e);
+            logger.error("Login page sa nepodarilo načítať.", e);
             return false;
         }
     }
 
+    @Step("Login as user: {username}")
     public DashboardPage login(String username, String password) {
-        waitForPageLoad(); // over, že stránka je ready
+        waitForPageLoad();
         type(usernameField, username);
         type(passwordField, password);
         click(loginButton);

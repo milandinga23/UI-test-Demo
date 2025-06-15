@@ -1,5 +1,6 @@
 package com.example.tests.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,7 @@ public class MyInfoPage extends BasePage {
         }
     }
 
+    @Step("Zobrazené meno")
     public String getDisplayedFullName() {
         return getText(fullNameHeader);
     }
