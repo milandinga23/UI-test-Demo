@@ -35,7 +35,6 @@ public class LoginPage extends BasePage {
         }
     }
 
-    @Step("Login as user: {username}")
     public DashboardPage login(String username, String password) {
         waitForPageLoad();
         type(usernameField, username);

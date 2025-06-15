@@ -29,7 +29,6 @@ public class MyInfoPage extends BasePage {
         }
     }
 
-    @Step("Zobrazené meno")
     public String getDisplayedFullName() {
         return getText(fullNameHeader);
     }
