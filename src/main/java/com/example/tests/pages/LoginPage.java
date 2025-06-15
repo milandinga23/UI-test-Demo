@@ -6,6 +6,9 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
+    @FindBy(xpath = "//h5[text()='Login']")
+    private WebElement heading;
+
     @FindBy(name = "username")
     private WebElement usernameField;
 
@@ -18,6 +21,17 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
         waitForUrlContains("/login");
+    }
+
+    public boolean isLoaded() {
+        try {
+            waitForVisibility(heading);
+            logger.info("PIM page úspešne načítaná.");
+            return true;
+        } catch (Exception e) {
+            logger.error("PIM page sa nepodarilo načítať.", e);
+            return false;
+        }
     }
 
     public DashboardPage login(String username, String password) {

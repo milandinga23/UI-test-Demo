@@ -94,4 +94,14 @@ public abstract class BasePage {
         wait.until(driver -> ((String) ((org.openqa.selenium.JavascriptExecutor) driver)
                 .executeScript("return document.readyState")).equals("complete"));
     }
+
+    public MyInfoPage goToMyInfo() {
+        clickByXpath("//span[text()='My Info']");
+        return new MyInfoPage(driver);
+    }
+
+    public EmployeeInformationPage goToEmployeeListPage() {
+        clickByXpath("//span[text()='PIM']");
+        return new EmployeeInformationPage(driver);
+    }
 }

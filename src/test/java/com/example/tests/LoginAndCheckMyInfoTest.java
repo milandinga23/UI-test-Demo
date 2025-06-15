@@ -10,15 +10,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginAndCheckMyInfoTest extends BaseTest {
 
+    private LoginPage loginPage;
+    private DashboardPage dashboardPage;
+    private MyInfoPage myInfoPage;
+
     @Test
     public void testEmployeeFullName() {
         // 1. Login
-        LoginPage loginPage = new LoginPage(driver);
-        DashboardPage dashboardPage = loginPage.login(TestData.USERNAME, TestData.PASSWORD);
+        loginPage = new LoginPage(driver);
+        assertTrue(loginPage.isLoaded(), "Login page sa nenačítala");
+        dashboardPage = loginPage.login(TestData.USERNAME, TestData.PASSWORD);
         assertTrue(dashboardPage.isLoaded(), "Dashboard sa nenačítal");
 
         // 2. Prejdi na My Info
-        MyInfoPage myInfoPage = dashboardPage.goToMyInfo();
+        myInfoPage = dashboardPage.goToMyInfo();
+        assertTrue(myInfoPage.isLoaded(), "My Info page sa nenačítala");
+
 
         // 3. Získaj meno zo stránky My Info
         String actualName = myInfoPage.getDisplayedFullName();

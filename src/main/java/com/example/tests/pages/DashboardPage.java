@@ -25,8 +25,4 @@ public class DashboardPage extends BasePage {
         }
     }
 
-    public MyInfoPage goToMyInfo() {
-        clickByXpath("//span[text()='My Info']");
-        return new MyInfoPage(driver);
-    }
 }

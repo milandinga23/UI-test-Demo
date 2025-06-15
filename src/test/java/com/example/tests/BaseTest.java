@@ -27,7 +27,7 @@ public class BaseTest {
         logger.info("Spúšťam prehliadač a otváram testovanú stránku...");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        driver.get(TestData.TEST_URL);
         logger.info("Načítaná stránka: {}", driver.getCurrentUrl());
     }
 
