@@ -12,7 +12,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                bat 'chcp 65001'
                 echo "🔄 Sťahujem kód z Gitu"
                 git 'https://github.com/milandinga23/UI-test-Demo'
             }
