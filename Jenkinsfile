@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         SCREENSHOT_DIR = 'target/screenshots'
+        MAVEN_OPTS = '-Dfile.encoding=UTF-8'
     }
 
     stages {
