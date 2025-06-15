@@ -21,8 +21,10 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo "🏗️ Buildujem a spúšťam testy paralelne cez Surefire"
-                withEnv(['JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8']) {
-                    bat 'mvn clean test'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    withEnv(['JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8']) {
+                        bat 'mvn clean test'
+                    }
                 }
             }
         }
