@@ -10,6 +10,10 @@ pipeline {
         MAVEN_OPTS = '-Dfile.encoding=UTF-8'
     }
 
+    triggers {
+        cron('0 8 * * *') // Každý deň o 08:00 ráno
+    }
+
     stages {
         stage('Checkout') {
             steps {
