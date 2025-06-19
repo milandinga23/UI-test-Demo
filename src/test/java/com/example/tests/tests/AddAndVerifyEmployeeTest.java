@@ -56,6 +56,7 @@ public class AddAndVerifyEmployeeTest extends BaseTest {
 
     @Step("Verifikuj pridaného zamestnanca na DB")
     public void checkNewEmployeeInDB(String firstName, String lastName, String employeeId) {
+        logger.info("Overujem pridaného zamestnanca na DB");
         EmployeeDao employeeDao = new EmployeeDao();
         Employee resultFromDB = employeeDao.getEmployeeNameById(employeeId);
 
