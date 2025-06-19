@@ -1,5 +1,7 @@
-package com.example.tests;
+package com.example.tests.tests;
 
+import com.example.tests.base.BaseTest;
+import com.example.tests.data.TestData;
 import com.example.tests.pages.DashboardPage;
 import com.example.tests.pages.MyInfoPage;
 import io.qameta.allure.Step;

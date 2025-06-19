@@ -1,5 +1,6 @@
-package com.example.tests;
+package com.example.tests.base;
 
+import com.example.tests.data.TestData;
 import com.example.tests.pages.DashboardPage;
 import com.example.tests.pages.LoginPage;
 import io.qameta.allure.Step;
@@ -49,11 +50,11 @@ public class BaseTest {
     @RegisterExtension
     TestResultWatcher watcher = new TestResultWatcher(this);
 
-    public void setDriver(WebDriver driver) {
+    protected void setDriver(WebDriver driver) {
         this.driver = driver;
     }
 
-    public WebDriver getDriver() {
+    protected WebDriver getDriver() {
         return driver;
     }
 

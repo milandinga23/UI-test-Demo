@@ -1,6 +1,7 @@
 package com.example.tests.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -92,8 +93,46 @@ public abstract class BasePage {
 
     protected void waitForPageLoad() {
         logger.info("Čakám na načítanie stránky pomocou JavaScriptu.");
+        // Najprv počkaj na načítanie dokumentu
         wait.until(driver -> ((org.openqa.selenium.JavascriptExecutor) driver)
                 .executeScript("return document.readyState").equals("complete"));
+
+
+        waitForAjaxComplete();
+    }
+
+    public void waitForAjaxComplete() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // Inject only once
+        js.executeScript("""
+                    if (!window.pendingXHR) {
+                        (function() {
+                            let oldXHR = window.XMLHttpRequest;
+                            let oldFetch = window.fetch;
+                            let count = 0;
+                
+                            function increment() { count++; }
+                            function decrement() { setTimeout(() => { if (count > 0) count--; }, 100); }
+                
+                            window.XMLHttpRequest = function() {
+                                let xhr = new oldXHR();
+                                xhr.addEventListener('readystatechange', function() {
+                                    if (xhr.readyState === 1) increment();
+                                    if (xhr.readyState === 4) decrement();
+                                }, false);
+                                return xhr;
+                            };
+                
+                            window.fetch = function() {
+                                increment();
+                                return oldFetch.apply(this, arguments).finally(decrement);
+                            };
+                
+                            window.pendingXHR = function() { return count; };
+                        })();
+                    }
+                """);
     }
 
     public MyInfoPage goToMyInfo() {
