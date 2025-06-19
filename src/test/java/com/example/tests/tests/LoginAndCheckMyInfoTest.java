@@ -23,7 +23,7 @@ public class LoginAndCheckMyInfoTest extends BaseTest {
         dashboardPage = loginToApp(TestData.USERNAME, TestData.PASSWORD);
         myInfoPage = goToMyInfoPage();
         actualName = myInfoPage.getDisplayedFullName();
-        assertName(TestData.EXPECTED_FULL_NAME);
+        assertName(TestData.EXPECTED_ADMIN_FULL_NAME);
     }
 
 

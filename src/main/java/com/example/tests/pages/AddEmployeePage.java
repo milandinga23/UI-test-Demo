@@ -41,7 +41,7 @@ public class AddEmployeePage extends BasePage {
         logger.info("Zadávam nového zamestnanca: {} {}", firstName, lastName);
         type(firstNameInput, firstName);
         type(lastNameInput, lastName);
-        type(employeeIdInput, employeeId);
+        typeByJavaScript(employeeIdInput, employeeId);
         click(saveButton);
         logger.info("Klikol som na Uložiť");
         return new MyInfoPage(driver);

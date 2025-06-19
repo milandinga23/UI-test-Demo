@@ -56,11 +56,22 @@ public abstract class BasePage {
         }
     }
 
+    protected void setInputValueByJavaScript(WebDriver driver, WebElement element, String text) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input'));", element, text);
+    }
+
     protected void type(WebElement element, String text) {
         waitForVisibility(element);
         logger.info("Zapisujem text '{}' do elementu: {}", text, element);
         element.clear();
         element.sendKeys(text);
+    }
+
+    protected void typeByJavaScript(WebElement element, String text) {
+        waitForVisibility(element);
+        logger.info("Zapisujem text '{}' do elementu: {} - pomocou JavaScriptu", text, element);
+        setInputValueByJavaScript(this.driver, element, text);
     }
 
     protected String getText(WebElement element) {
@@ -93,10 +104,9 @@ public abstract class BasePage {
 
     protected void waitForPageLoad() {
         logger.info("Čakám na načítanie stránky pomocou JavaScriptu.");
-        // Najprv počkaj na načítanie dokumentu
+
         wait.until(driver -> ((org.openqa.selenium.JavascriptExecutor) driver)
                 .executeScript("return document.readyState").equals("complete"));
-
 
         waitForAjaxComplete();
     }
