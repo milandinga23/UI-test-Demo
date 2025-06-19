@@ -5,12 +5,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.function.Function;
 
 public abstract class BasePage {
 
@@ -107,42 +109,17 @@ public abstract class BasePage {
 
         wait.until(driver -> ((org.openqa.selenium.JavascriptExecutor) driver)
                 .executeScript("return document.readyState").equals("complete"));
-
-        waitForAjaxComplete();
     }
 
-    public void waitForAjaxComplete() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        // Inject only once
-        js.executeScript("""
-                    if (!window.pendingXHR) {
-                        (function() {
-                            let oldXHR = window.XMLHttpRequest;
-                            let oldFetch = window.fetch;
-                            let count = 0;
-                
-                            function increment() { count++; }
-                            function decrement() { setTimeout(() => { if (count > 0) count--; }, 100); }
-                
-                            window.XMLHttpRequest = function() {
-                                let xhr = new oldXHR();
-                                xhr.addEventListener('readystatechange', function() {
-                                    if (xhr.readyState === 1) increment();
-                                    if (xhr.readyState === 4) decrement();
-                                }, false);
-                                return xhr;
-                            };
-                
-                            window.fetch = function() {
-                                increment();
-                                return oldFetch.apply(this, arguments).finally(decrement);
-                            };
-                
-                            window.pendingXHR = function() { return count; };
-                        })();
-                    }
-                """);
+    public ExpectedCondition<Boolean> elementHasNonEmptyText(WebElement element) {
+        return driver -> {
+            try {
+                String text = element.getText();
+                return !text.trim().isEmpty();
+            } catch (Exception e) {
+                return false;
+            }
+        };
     }
 
     public MyInfoPage goToMyInfo() {

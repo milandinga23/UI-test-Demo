@@ -1,11 +1,9 @@
 package com.example.tests.pages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MyInfoPage extends BasePage {
 
@@ -33,6 +31,7 @@ public class MyInfoPage extends BasePage {
 
     @Step("Získaj meno zo stránky My Info")
     public String getDisplayedFullName() {
+        wait.until(elementHasNonEmptyText(fullNameHeader));
         return getText(fullNameHeader);
     }
 }
