@@ -50,7 +50,7 @@ public class EmployeeInformationPage extends BasePage {
 
         WebElement next = nextButtons.get(0);
         boolean enabled = next.isEnabled();
-        logger.info("Tlačidlo 'Next Page' nájdené. Enabled: " + enabled);
+        logger.info("Tlačidlo 'Next Page' nájdené. Enabled: {}", enabled);
         return enabled;
     }
 
@@ -67,8 +67,8 @@ public class EmployeeInformationPage extends BasePage {
     public boolean searchEmployeeByEmployeeIdAcrossPages(String employeeId) throws InterruptedException {
         do {
             List<String> employeeIds = getEmployeeNamesFromPage();
-            logger.info("Hľadaný employee Id: " + employeeId);
-            logger.info("Načítané employee Id zo stránky: " + employeeIds);
+            logger.info("Hľadaný employee Id: {}", employeeId);
+            logger.info("Načítané employee Id zo stránky: {}", employeeIds);
             if (employeeIds.stream().anyMatch(employee -> employee.contains(employeeId))) {
                 return true;
             }

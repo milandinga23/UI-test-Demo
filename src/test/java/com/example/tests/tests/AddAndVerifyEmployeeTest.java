@@ -47,7 +47,7 @@ public class AddAndVerifyEmployeeTest extends BaseTest {
 
     @Step("Verifikuj pridaného zamestnanca na FE")
     public EmployeeInformationPage verifyNewEmployee(String employeeId, String fullName) throws InterruptedException {
-        employeeListPage = dashboardPage.goToEmployeeListPage();
+        employeeListPage = myInfoPage.goToEmployeeListPage();
         assertTrue(employeeListPage.isLoaded(), "Employee List sa nenačítal");
         boolean found = employeeListPage.searchEmployeeByEmployeeIdAcrossPages(employeeId);
         assertTrue(found, "Zamestnanec: " + fullName + " s Id:" + employeeId + " nebol nájdený v zozname!");
